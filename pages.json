@@ -1,22 +1,37 @@
 {
 	"pages": [
 		{
-            "path" : "pages/home/home"
-            
+            "path" : "pages/home/home",
+			"style":{}
         }
         ,{
-            "path" : "pages/cate/cate"
-            
+            "path" : "pages/cate/cate",
+			"style":{}
         }
         ,{
-            "path" : "pages/cart/cart"
-            
+            "path" : "pages/cart/cart",
+			"style":{}
         }
         ,{
-            "path" : "pages/my/my"
-            
+            "path" : "pages/my/my",
+			"style":{}
         }
     ],
+	"subPackages":[
+		{
+			"root":"subpkg",
+			"pages":[{
+                    "path" : "goods_detail/goods_detail",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "商品详情",
+                    "enablePullDownRefresh": false
+                }
+                
+                }
+            ]
+		}
+	],
 	"tabBar":{
 		"selectedColor":"#c00000",
 		"list":[
