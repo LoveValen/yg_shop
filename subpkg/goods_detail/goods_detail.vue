@@ -1,11 +1,11 @@
 <template>
-	<view>
+	<view v-if="goodsInfo.goods_name">
 		<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" :circular="true">
 			<swiper-item v-for="(pic,index) in goodsInfo.pics">
 				<image :src="pic.pics_big" mode="widthFix" @click="preview(index)"></image>
 			</swiper-item>
 		</swiper>
-		<view class="goods_des" v-if="goods_info.goods_name">
+		<view class="goods_des">
 			<view class="goods_price">￥{{goodsInfo.goods_price}}</view>
 			<view class="des_middle">
 				<view class="goods_name">{{goodsInfo.goods_name}}</view>
@@ -17,7 +17,11 @@
 			<!-- 快递，免运费 -->
 			<view class="goods_freight">快递：免运费</view>
 		</view>
-		<rich-text :nodes="goodsInfo.goods_introduce"></rich-text>
+		<view class="goods_detail_container">
+			<rich-text :nodes="goodsInfo.goods_introduce"></rich-text>
+		</view>
+		<uni-goods-nav class="cart_sticky" :fill="true" :options="options" :buttonGroup="buttonGroup" @click="onClick"
+			@buttonClick="buttonClick" />
 	</view>
 </template>
 
@@ -25,7 +29,26 @@
 	export default {
 		data() {
 			return {
-				goodsInfo: {}
+				goodsInfo: {},
+				options: [{
+					icon: 'shop',
+					text: '店铺'
+				}, {
+					icon: 'cart',
+					text: '购物车',
+					info: 2
+				}],
+				buttonGroup: [{
+						text: '加入购物车',
+						backgroundColor: '#ff0000',
+						color: '#fff'
+					},
+					{
+						text: '立即购买',
+						backgroundColor: '#ffa200',
+						color: '#fff'
+					}
+				]
 			};
 		},
 		onLoad(options) {
@@ -101,5 +124,15 @@
 			font-size: 12px;
 			color: #b6b6b6;
 		}
+	}
+
+	.goods_detail_container {
+		margin-bottom: 50px;
+	}
+
+	.cart_sticky {
+		width: 100%;
+		position: fixed;
+		bottom: 0;
 	}
 </style>
