@@ -1,5 +1,8 @@
 <template>
 	<view>
+		<view class="search">
+		<my-search></my-search>
+		</view>
 		<!-- 首页轮播图 -->
 		<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000">
 			<swiper-item v-for="(item,index) in swiperList" :key="index">
@@ -107,6 +110,12 @@
 </script>
 
 <style lang="scss">
+	.search {
+		position: sticky;
+		top: 0;
+		z-index: 9999;
+	}
+
 	swiper {
 		height: 340rpx;
 

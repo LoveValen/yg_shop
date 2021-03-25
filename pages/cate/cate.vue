@@ -9,10 +9,11 @@
 				</view>
 			</scroll-view>
 			<!-- 右侧滚动区域 -->
-			<scroll-view class="scroll-view-container-right" scroll-y :style="{height:windowHeight+'px'}">
+			<scroll-view class="scroll-view-container-right" :style="{height:windowHeight+'px'}" scroll-y
+				:scroll-top="scollTop">
 				<view class="right_item_one">
 					<view v-for="(item,index) in childCateList" :key="index">
-							/ {{item.cat_name}} /
+						<text v-if="item.children">/ {{item.cat_name}} /</text>
 						<view class="imgList">
 							<view class="right_item_two">
 								<view v-for="(images,i) in item.children" :key="i">
@@ -36,20 +37,21 @@
 				windowHeight: 0,
 				active: 0,
 				cateList: [],
-				childCateList: []
-				// childImgList: []
+				childCateList: [],
+				scollTop: 0
 			};
 		},
 		onLoad() {
 			// 获取当前系统的信息 uni.getSystemInfoSync()
 			// 为 windowHeight 窗口可用高度动态赋值
-			this.windowHeight = uni.getSystemInfoSync().windowHeight
+			this.windowHeight = uni.getSystemInfoSync().windowHeight - 50
 			this.getCateList()
 		},
 		methods: {
 			changeCate(index) {
 				this.active = index
 				this.childCateList = this.cateList[index].children
+				this.scollTop = this.scollTop ? 0 : 1
 			},
 			async getCateList() {
 				// 发起请求
@@ -64,7 +66,6 @@
 				// 转存数据
 				this.cateList = message
 				this.childCateList = message[0].children
-				// this.childImgList = message[0].children[0].children
 			}
 		}
 	}
@@ -77,7 +78,6 @@
 
 		.scroll-view-container-left {
 			width: 260rpx;
-			box-shadow: 10rpx 0 10px #b6b6b6;
 
 			.left_item {
 				width: 100%;
@@ -95,11 +95,12 @@
 					&::before {
 						position: absolute;
 						content: '';
-						height: 100%;
+						height: 30px;
 						width: 10rpx;
 						border-left: 10rpx solid #c00000;
 						left: 0;
-						top: 0;
+						top: 50%;
+						margin-top: -13px;
 					}
 				}
 			}
@@ -108,7 +109,17 @@
 		.scroll-view-container-right {
 
 			.right_item_one {
-				text-align: center;
+				&>view>text {
+					display: block;
+					width: 240rpx;
+					height: 40px;
+					text-align: center;
+					line-height: 40px;
+					background-color: #b6b6b6;
+					border-radius: 8px;
+					margin: 10px auto;
+					color: #ffffff;
+				}
 			}
 
 			.imgList {
@@ -121,6 +132,7 @@
 					display: flex;
 					width: 100%;
 					flex-wrap: wrap;
+
 					view {
 						box-sizing: border-box;
 						width: 33.3%;
