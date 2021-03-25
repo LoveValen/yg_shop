@@ -38,6 +38,7 @@
 				}, 500)
 			},
 			async getSearchList() {
+				if(!this.keyWords) return this.searchList = []
 				const {
 					data: {
 						message,
