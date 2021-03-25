@@ -55,9 +55,9 @@
 		},
 		methods: {
 			// 点击图片跳转至商品详情
-			navToGoodsList(navUrl){
+			navToGoodsList(navUrl) {
 				uni.navigateTo({
-					url:`/subpkg/goods_list/goods_list?${navUrl}`
+					url: `/subpkg/goods_list/goods_list?${navUrl}`
 				})
 			},
 			// 点击分类 tabBar 跳转
