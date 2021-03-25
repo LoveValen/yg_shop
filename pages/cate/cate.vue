@@ -16,7 +16,7 @@
 						<text v-if="item.children">/ {{item.cat_name}} /</text>
 						<view class="imgList">
 							<view class="right_item_two">
-								<view v-for="(images,i) in item.children" :key="i">
+								<view v-for="(images,i) in item.children" :key="i" @click="navToGoodsList(item.cat_id)">
 									<image :src="images.cat_icon" mode=""></image>
 									<text>{{images.cat_name}}</text>
 								</view>
@@ -48,6 +48,11 @@
 			this.getCateList()
 		},
 		methods: {
+			navToGoodsList(id){
+				uni.navigateTo({
+					url:'/subpkg/goods_list/goods_list?cid='+id
+				})
+			},
 			changeCate(index) {
 				this.active = index
 				this.childCateList = this.cateList[index].children
