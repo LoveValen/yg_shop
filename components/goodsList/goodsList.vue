@@ -1,12 +1,12 @@
 <template>
 	<view>
-		<view class="goods_item">
+		<view class="goods_item" @click="clickHandler">
 			<view>
 				<image class="image" :src="goods.goods_small_logo || defaultPic" mode=""></image>
 			</view>
 			<view class="goods_name">
 				<view class="text">{{goods.goods_name}}</view>
-				<view class="goods_price">￥{{goods.goods_price}}</view>
+				<view class="goods_price">￥{{goods.goods_price | formatPrice}}</view>
 			</view>
 		</view>
 	</view>
@@ -26,6 +26,16 @@
 				// 默认的空图片
 				defaultPic: 'https://img3.doubanio.com/f/movie/8dd0c794499fe925ae2ae89ee30cd225750457b4/pics/movie/celebrity-default-medium.png'
 			};
+		},
+		filters:{
+			formatPrice(val){
+				return Number(val).toFixed(2)
+			}
+		},
+		methods:{
+			clickHandler(){
+				this.$emit('click',this.goods.goods_id)
+			}
 		}
 	}
 </script>
