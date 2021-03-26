@@ -13,7 +13,7 @@ export default {
 				state.cartInfo.push(goods)
 			} else {
 				// 如果购物车中有这件商品，则只更新数量即可
-				findResult.goods_count +=1
+				findResult.goods_count += 1
 			}
 			this.commit('cart/saveStorageCart')
 		},
@@ -47,8 +47,15 @@ export default {
 				this.commit('cart/saveStorageCart')
 			}
 		},
-		deleteCartCount(state,goodsId){
+		deleteCartCount(state, goodsId) {
 			state.cartInfo = state.cartInfo.filter(item => item.goods_id !== goodsId)
+			this.commit('cart/saveStorageCart')
+		},
+		cancelAll(state) {
+			state.cartInfo = state.cartInfo.map(item => {
+				item.goods_state = false
+				return item
+			})
 			this.commit('cart/saveStorageCart')
 		}
 
@@ -61,6 +68,16 @@ export default {
 			let count = 0
 			state.cartInfo.forEach(item => count += Number(item.goods_count))
 			return count
+		},
+		totalMoney(state) {
+			return state.cartInfo.reduce((prev, cur) => {
+				console.log(prev, cur)
+				return prev + cur.goods_price * cur.goods_count
+			}, 0)
+		},
+		allChecked(state) {
+			let isAll = state.cartInfo.find(item => item.goods_state === false)
+			return isAll ? false : true
 		}
 	}
 

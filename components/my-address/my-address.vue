@@ -5,7 +5,7 @@
 				<view class="address_check" v-if="Object.keys(address).length === 0" @click="chooseAddress">
 					请选择收货地址+
 				</view>
-				<view class="address_detail" v-else @click="chooseAddress">
+				<view class="address_detail" v-else>
 					<view class="row1">
 						<view>收件人: {{address.userName}}</view>
 						<view>电话: {{address.telNumber}}

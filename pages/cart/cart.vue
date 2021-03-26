@@ -13,6 +13,7 @@
 				</uni-swipe-action-item>
 			</uni-swipe-action>
 		</block>
+		<my-settle></my-settle>
 	</view>
 </template>
 
@@ -55,6 +56,8 @@
 
 <style lang="scss">
 	.cart {
+		margin-bottom: 50px;
+		
 		.cart_top {
 			display: flex;
 			align-items: center;
