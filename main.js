@@ -32,9 +32,12 @@ uni.$showMsg = function(title = '数据加载成功！', duration = 1500) {
 
 Vue.config.productionTip = false
 
+import store from './store/store.js'
+
 App.mpType = 'app'
 
 const app = new Vue({
-	...App
+	...App,
+	store
 })
 app.$mount()

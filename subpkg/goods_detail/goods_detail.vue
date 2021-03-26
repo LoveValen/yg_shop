@@ -1,7 +1,7 @@
 <template>
 	<view v-if="goodsInfo.goods_name">
 		<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" :circular="true">
-			<swiper-item v-for="(pic,index) in goodsInfo.pics">
+			<swiper-item v-for="(pic,index) in goodsInfo.pics" :key="index">
 				<image :src="pic.pics_big" mode="widthFix" @click="preview(index)"></image>
 			</swiper-item>
 		</swiper>
@@ -15,17 +15,22 @@
 				</view>
 			</view>
 			<!-- 快递，免运费 -->
-			<view class="goods_freight">快递：免运费</view>
+			<view class="goods_freight">快递：免运费{{count}}</view>
 		</view>
 		<view class="goods_detail_container">
 			<rich-text :nodes="goodsInfo.goods_introduce"></rich-text>
 		</view>
-		<uni-goods-nav class="cart_sticky" :fill="true" :options="options" :buttonGroup="buttonGroup" @click="onClick"
-			@buttonClick="buttonClick" />
+		<uni-goods-nav class="cart_sticky" :fill="true" :options="options" :buttonGroup="buttonGroup" @click="cartLeft"
+			@buttonClick="addCarts" />
 	</view>
 </template>
 
 <script>
+	import {
+		mapState,
+		mapMutations,
+		mapGetters
+	} from "vuex"
 	export default {
 		data() {
 			return {
@@ -36,7 +41,7 @@
 				}, {
 					icon: 'cart',
 					text: '购物车',
-					info: 2
+					info: 0
 				}],
 				buttonGroup: [{
 						text: '加入购物车',
@@ -51,10 +56,45 @@
 				]
 			};
 		},
+		computed: {
+			...mapState('cart', ['cartInfo']),
+			...mapGetters('cart',['total'])
+		},
+		watch:{
+			total:{
+				handler:function(newVal){
+					this.options.forEach(item=>{
+						if(item.text === '购物车') item.info = newVal
+					})
+				},
+				immediate: true
+			}
+		},
 		onLoad(options) {
 			this.getGoodsDetail(options.goods_id)
 		},
 		methods: {
+			...mapMutations('cart', ['addCart']),
+			cartLeft(e) {
+			},
+			addCarts(e) {
+				const {
+					goods_id,
+					goods_name,
+					goods_price,
+					goods_small_logo
+				} = this.goodsInfo
+				const cartInfo = {goods_id,
+					goods_name,
+					goods_price,
+					goods_small_logo,
+					goods_count:1,
+					goods_status:true}
+				if (e.content.text === '加入购物车') {
+					this.addCart(cartInfo)
+				}
+				console.log(this.cartInfo)
+			},
 			async getGoodsDetail(goods_id) {
 				const {
 					data: {
