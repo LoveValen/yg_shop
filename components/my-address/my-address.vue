@@ -28,14 +28,19 @@
 </template>
 
 <script>
+	import {
+		mapState,
+		mapMutations,
+		mapGetters
+	} from 'vuex'
 	export default {
 		name: "my-address",
 		data() {
 			return {
-				address: {}
 			};
 		},
 		methods: {
+			...mapMutations('user', ['setAddress']),
 			// 选择收货地址
 			async chooseAddress() {
 				// 1. 调用小程序提供的 chooseAddress() 方法，即可使用选择收货地址的功能
@@ -45,20 +50,13 @@
 				if (err === null && success.errMsg === 'chooseAddress:ok') {
 					// 为 data 里面的收货地址对象赋值
 					this.address = success
+					this.setAddress(success)
 				}
 			}
 		},
 		computed: {
-			addressDetail() {
-				const {
-					provinceName,
-					cityName,
-					countyName,
-					detailInfo
-				} = this.address
-
-				return provinceName + cityName + countyName + detailInfo
-			}
+			...mapState('user', ['address']),
+			...mapGetters('user', ['addressDetail'])
 		}
 	}
 </script>
