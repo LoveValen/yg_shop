@@ -30,6 +30,7 @@
 </template>
 
 <script>
+	import badgeMixins from '@/mixins/tabbar-badge.js'
 	export default {
 		data() {
 			return {
@@ -41,6 +42,7 @@
 				scollTop: 0
 			};
 		},
+		mixins: [badgeMixins],
 		onLoad() {
 			// 获取当前系统的信息 uni.getSystemInfoSync()
 			// 为 windowHeight 窗口可用高度动态赋值
@@ -48,9 +50,9 @@
 			this.getCateList()
 		},
 		methods: {
-			navToGoodsList(id){
+			navToGoodsList(id) {
 				uni.navigateTo({
-					url:'/subpkg/goods_list/goods_list?cid='+id
+					url: '/subpkg/goods_list/goods_list?cid=' + id
 				})
 			},
 			changeCate(index) {

@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="search">
-		<my-search></my-search>
+			<my-search></my-search>
 		</view>
 		<!-- 首页轮播图 -->
 		<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000">
@@ -43,6 +43,7 @@
 </template>
 
 <script>
+	import badgeMixins from '@/mixins/tabbar-badge.js'
 	export default {
 		data() {
 			return {
@@ -51,6 +52,7 @@
 				floorList: []
 			};
 		},
+		mixins: [badgeMixins],
 		onLoad() {
 			this.getSwiperList()
 			this.getNavList()
