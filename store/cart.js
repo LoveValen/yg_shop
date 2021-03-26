@@ -46,6 +46,10 @@ export default {
 				findRes.goods_count = cartCount.goods_count
 				this.commit('cart/saveStorageCart')
 			}
+		},
+		deleteCartCount(state,goodsId){
+			state.cartInfo = state.cartInfo.filter(item => item.goods_id !== goodsId)
+			this.commit('cart/saveStorageCart')
 		}
 
 	},
