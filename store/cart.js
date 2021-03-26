@@ -1,7 +1,7 @@
 export default {
 	namespaced:true,
 	state:()=>({
-		cartInfo:[]
+		cartInfo:JSON.parse( uni.getStorageSync('cart') || '[]')
 	}),
 	mutations:{
 		addCart(state,goodsInfo){
@@ -16,6 +16,9 @@ export default {
 			}else{
 				state.cartInfo.push(goodsInfo)
 			}
+		},
+		saveStorageCart(state){
+			uni.setStorageSync('cart',JSON.stringify(state.cartInfo))
 		}
 	},
 	actions:{

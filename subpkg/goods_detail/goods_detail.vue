@@ -74,7 +74,7 @@
 			this.getGoodsDetail(options.goods_id)
 		},
 		methods: {
-			...mapMutations('cart', ['addCart']),
+			...mapMutations('cart', ['addCart','saveStorageCart']),
 			cartLeft(e) {
 			},
 			addCarts(e) {
@@ -92,8 +92,8 @@
 					goods_status:true}
 				if (e.content.text === '加入购物车') {
 					this.addCart(cartInfo)
+					this.saveStorageCart()
 				}
-				console.log(this.cartInfo)
 			},
 			async getGoodsDetail(goods_id) {
 				const {
