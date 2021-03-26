@@ -78,21 +78,22 @@
 			cartLeft(e) {
 			},
 			addCarts(e) {
-				const {
-					goods_id,
-					goods_name,
-					goods_price,
-					goods_small_logo
-				} = this.goodsInfo
-				const cartInfo = {goods_id,
-					goods_name,
-					goods_price,
-					goods_small_logo,
+				// const {
+				// 	goods_id,
+				// 	goods_name,
+				// 	goods_price,
+				// 	goods_small_logo
+				// } = this.goodsInfo
+				const cartInfo = {
+					goods_id:this.goodsInfo.goods_id,
+					goods_name:this.goodsInfo.goods_name,
+					goods_price:this.goodsInfo.goods_price,
+					goods_small_logo:this.goodsInfo.goods_small_logo,
 					goods_count:1,
-					goods_status:true}
+					goods_state:true
+					}
 				if (e.content.text === '加入购物车') {
 					this.addCart(cartInfo)
-					this.saveStorageCart()
 				}
 			},
 			async getGoodsDetail(goods_id) {
@@ -107,7 +108,6 @@
 				if (meta.status !== 200) return uni.$showMsg()
 				message.goods_introduce = message.goods_introduce.replace(/<img/g, '<img style="display:block"')
 				this.goodsInfo = message
-				console.log(message)
 			},
 			preview(index) {
 				uni.previewImage({
