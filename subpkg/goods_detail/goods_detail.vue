@@ -78,12 +78,6 @@
 			cartLeft(e) {
 			},
 			addCarts(e) {
-				// const {
-				// 	goods_id,
-				// 	goods_name,
-				// 	goods_price,
-				// 	goods_small_logo
-				// } = this.goodsInfo
 				const cartInfo = {
 					goods_id:this.goodsInfo.goods_id,
 					goods_name:this.goodsInfo.goods_name,

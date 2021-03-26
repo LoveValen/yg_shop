@@ -13,7 +13,7 @@ export default {
 				state.cartInfo.push(goods)
 			} else {
 				// 如果购物车中有这件商品，则只更新数量即可
-				findResult.goods_count++
+				findResult.goods_count +=1
 			}
 			this.commit('cart/saveStorageCart')
 		},
@@ -58,10 +58,8 @@ export default {
 	},
 	getters: {
 		total(state) {
-			let count
-			state.cartInfo.forEach(item => {
-				count = item.goods_count
-			})
+			let count = 0
+			state.cartInfo.forEach(item => count += Number(item.goods_count))
 			return count
 		}
 	}

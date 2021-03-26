@@ -16,7 +16,7 @@
 						<text v-if="item.children">/ {{item.cat_name}} /</text>
 						<view class="imgList">
 							<view class="right_item_two">
-								<view v-for="(images,i) in item.children" :key="i" @click="navToGoodsList(item.cat_id)">
+								<view v-for="(images,i) in item.children" :key="i" @click="navToGoodsList(images.cat_id)">
 									<image :src="images.cat_icon" mode=""></image>
 									<text>{{images.cat_name}}</text>
 								</view>
