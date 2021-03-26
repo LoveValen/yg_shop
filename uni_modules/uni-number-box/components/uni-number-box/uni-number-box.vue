@@ -3,7 +3,8 @@
 		<view @click="_calcValue('minus')" class="uni-numbox__minus uni-cursor-point">
 			<text class="uni-numbox--text" :class="{ 'uni-numbox--disabled': inputValue <= min || disabled }">-</text>
 		</view>
-		<input :disabled="disabled" @focus="_onFocus" @blur="_onBlur" class="uni-numbox__value" type="number" v-model="inputValue" />
+		<input :disabled="disabled" @focus="_onFocus" @blur="_onBlur" class="uni-numbox__value" type="number"
+			v-model="inputValue" />
 		<view @click="_calcValue('plus')" class="uni-numbox__plus uni-cursor-point">
 			<text class="uni-numbox--text" :class="{ 'uni-numbox--disabled': inputValue >= max || disabled }">+</text>
 		</view>
@@ -56,9 +57,16 @@
 				this.inputValue = +val;
 			},
 			inputValue(newVal, oldVal) {
-				if (+newVal !== +oldVal) {
+				// if (+newVal !== +oldVal) {
+				// 	this.$emit("change", newVal);
+				// 	this.$emit("input", newVal);
+				// }
+				// 官方提供的 if 判断条件，在用户每次输入内容时，都会调用 this.$emit("change", newVal)
+				// if (+newVal !== +oldVal) {
+
+				// 新旧内容不同 && 新值内容合法 && 新值中不包含小数点
+				if (+newVal !== +oldVal && Number(newVal) && String(newVal).indexOf('.') === -1) {
 					this.$emit("change", newVal);
-					this.$emit("input", newVal);
 				}
 			}
 		},
