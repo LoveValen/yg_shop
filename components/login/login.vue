@@ -15,6 +15,7 @@
 
 <script>
 	import {
+		mapState,
 		mapMutations
 	} from 'vuex'
 	export default {
@@ -24,8 +25,12 @@
 
 			};
 		},
+		computed:{
+			...mapState('user',['redirectInfo'])
+		},
 		methods: {
 			...mapMutations('user', ['updateUserInfo', 'updateToken']),
+			...mapMutations('user',['updateRedirectInfo']),
 			// 获取微信用户的基本信息
 			getUserInfo(e) {
 				// 判断是否获取用户信息成功
@@ -56,12 +61,23 @@
 				} = await uni.$http.post('/api/public/v1/users/wxlogin', query)
 				if (loginResult.meta.status !== 200) {
 					// loginResult.message.token判断是否有token
-					this.updateToken(loginResult.message || 'token')
+					this.updateToken('token')
 					return uni.$showMsg('登录失败！')
 				}
 				this.updateToken(loginResult.message.token)
 				uni.$showMsg('登录成功')
+				this.navigateBack()
 				console.log(resInfo)
+			},
+			navigateBack(){
+				if(this.redirectInfo && this.redirectInfo.openType === 'switchTab'){
+					uni.switchTab({
+						url:this.redirectInfo.from,
+						complete() {
+							this.updateRedirectInfo(null)
+						}
+					})
+				}
 			}
 		}
 	}

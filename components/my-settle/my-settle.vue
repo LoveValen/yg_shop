@@ -36,6 +36,7 @@
 		},
 		methods: {
 			...mapMutations('cart', ['cancelAll']),
+			...mapMutations('user',['updateRedirectInfo']),
 			cancelAllChecked() {
 				this.cancelAll(!this.allChecked)
 			},
@@ -57,7 +58,13 @@
 					if (this.seconds <= 0) {
 						clearInterval(this.timer)
 						uni.switchTab({
-							url: '/pages/my/my'
+							url: '/pages/my/my',
+							success() {
+								this.updateRedirectInfo({
+									openType:'switchTab',
+									from:'/pages/cart/cart'
+								})
+							}
 						})
 						return
 					}
