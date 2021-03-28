@@ -120,6 +120,21 @@
 				if(res2.meta.status !== 200) return uni.$showMsg('预付订单生成失败！')
 				// 2.3 得到订单支付相关的必要参数
 				const payInfo = res2.message.pay
+				
+				// 3. 发起微信支付
+				// 3.1 调用 uni.requestPayment() 发起微信支付
+				const [err,succ] = await uni.requestPayment(payInfo)
+				// 3.2 未完成支付
+				if(err) return uni.$showMsg('订单未支付！')
+				// 3.3 完成了支付，进一步查询支付的结果
+				const {data:res3} = await uni.$http.post('/api/public/v1/my/orders/chkOrder',{order_number:orderNumber})
+				// 3.4 检测到订单未支付
+				if(res3.meta.status !== 200) return uni.$showMsg('订单未支付！')
+				// 3.5 检测到订单支付完成
+				uni.showToast({
+					title:'支付成功！',
+					icon:'success'
+				})
 			}
 		}
 	}
