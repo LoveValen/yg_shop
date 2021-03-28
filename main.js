@@ -5,6 +5,7 @@ import {
 	$http
 } from "@escook/request-miniprogram"
 
+import store from './store/store.js'
 // 可以把 $http 挂载到 uni 顶级对象之上，方便全局调用
 uni.$http = $http
 // 配置请求根路径
@@ -39,8 +40,6 @@ uni.$showMsg = function(title = '数据加载成功！', duration = 1500) {
 }
 
 Vue.config.productionTip = false
-
-import store from './store/store.js'
 
 App.mpType = 'app'
 

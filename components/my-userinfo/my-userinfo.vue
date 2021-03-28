@@ -127,17 +127,13 @@
 			position: relative;
 			top: -10px;
 
-			// .floor_one{
-			// 	margin-bottom: 10px;
-			// }
-
 			.floor_item {
 				display: flex;
 				justify-content: space-around;
-				width: 90%;
+				width: 95%;
 				border-radius: 8px;
-				padding: 10px 0;
-				margin: 0 auto;
+				padding: 15px 0;
+				margin: 0 auto 10px;
 				background-color: #fff;
 
 				view {
@@ -145,6 +141,10 @@
 					flex-direction: column;
 					justify-content: center;
 					align-items: center;
+					
+					text:nth-child(2){
+						font-size: 12px;
+					}
 				}
 
 				image {
@@ -156,7 +156,7 @@
 			}
 
 			.floor_item_two {
-				width: 90%;
+				width: 95%;
 				box-sizing: border-box;
 				background-color: #fff;
 				padding: 0 10px;
@@ -164,10 +164,12 @@
 				border-radius: 8px;
 
 				view {
-					padding: 10px 0;
+					box-sizing: border-box;
+					padding: 15px 0;
 					width: 100%;
 					display: flex;
 					justify-content: space-between;
+					border-bottom: 1px solid #f4f4f4;
 				}
 			}
 		}

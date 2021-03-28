@@ -29,8 +29,7 @@
 			...mapState('user',['redirectInfo'])
 		},
 		methods: {
-			...mapMutations('user', ['updateUserInfo', 'updateToken']),
-			...mapMutations('user',['updateRedirectInfo']),
+			...mapMutations('user', ['updateUserInfo', 'updateToken','updateRedirectInfo']),
 			// 获取微信用户的基本信息
 			getUserInfo(e) {
 				// 判断是否获取用户信息成功
@@ -67,13 +66,12 @@
 				this.updateToken(loginResult.message.token)
 				uni.$showMsg('登录成功')
 				this.navigateBack()
-				console.log(resInfo)
 			},
 			navigateBack(){
 				if(this.redirectInfo && this.redirectInfo.openType === 'switchTab'){
 					uni.switchTab({
 						url:this.redirectInfo.from,
-						complete() {
+						complete:()=> {
 							this.updateRedirectInfo(null)
 						}
 					})

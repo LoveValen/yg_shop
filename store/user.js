@@ -12,15 +12,15 @@ export default {
 			state.address = address
 			this.commit('user/setAddress')
 		},
-		setAddress(state, address) {
-			uni.setStorageSync('address', JSON.stringify(address))
+		setAddress(state) {
+			uni.setStorageSync('address', JSON.stringify(state.address))
 		},
 		updateUserInfo(state, user) {
 			state.userInfo = user
 			this.commit('user/setStorageUserInfo')
 		},
-		setStorageUserInfo(state, user) {
-			uni.setStorageSync('userInfo', JSON.stringify(user))
+		setStorageUserInfo(state) {
+			uni.setStorageSync('userInfo', JSON.stringify(state.user))
 		},
 		updateToken(state, token) {
 			state.token = token
@@ -29,8 +29,8 @@ export default {
 		setStorageToken(state) {
 			uni.setStorageSync('token', state.token)
 		},
-		updateRedirectInfo(state, redirectInfo) {
-			state.redirectInfo = redirectInfo
+		updateRedirectInfo(state,info){
+			state.redirectInfo = info
 		}
 	},
 	getters: {

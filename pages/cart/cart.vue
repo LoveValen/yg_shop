@@ -52,7 +52,6 @@
 			changeCount(val) {
 				this.updateCartCount(val)
 			},
-			change() {},
 			deleteGoods(goods) {
 				this.deleteCartCount(goods.goods_id)
 			}

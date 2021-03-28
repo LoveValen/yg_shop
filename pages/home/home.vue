@@ -24,7 +24,7 @@
 					<image class="img_title" :src="floor.floor_title.image_src" mode=""></image>
 				</view>
 				<view class="img_content">
-					<view class="img_content_left" @click="navToGoodsList(floor.product_list[0].navigator_url)">
+					<view @click="navToGoodsList(floor.product_list[0].navigator_url)">
 						<image :style="{width:floor.product_list[0].image_width + 'rpx'}"
 							:src="floor.product_list[0].image_src" mode="widthFix"></image>
 					</view>
@@ -125,6 +125,7 @@
 		image {
 			width: 100%;
 			height: 100%;
+			display: block;
 		}
 	}
 
@@ -137,6 +138,7 @@
 			image {
 				width: 140rpx;
 				height: 150rpx;
+				display: block;
 			}
 		}
 	}
@@ -153,11 +155,15 @@
 			}
 
 			.img_content {
+				// height: ;
 				display: flex;
 				justify-content: space-around;
 				padding: 15rpx;
+				
+				.img_content_left{}
 
 				.img_content_right {
+					// height: 100%;
 					display: flex;
 					flex-wrap: wrap;
 					justify-content: space-between;

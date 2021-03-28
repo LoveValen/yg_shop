@@ -38,6 +38,10 @@
 		data() {
 			return {};
 		},
+		computed: {
+			...mapState('user', ['address']),
+			...mapGetters('user', ['addressDetail'])
+		},
 		methods: {
 			...mapMutations('user', ['updateAddress']),
 			// 选择收货地址
@@ -48,7 +52,7 @@
 				// 2. 用户成功的选择了收货地址
 				if (err === null && success.errMsg === 'chooseAddress:ok') {
 					// 为 data 里面的收货地址对象赋值
-					this.address = success
+					// this.address = success
 					this.updateAddress(success)
 				}
 				// 3. 用户没有授权
@@ -84,10 +88,6 @@
 					}
 				})
 			}
-		},
-		computed: {
-			...mapState('user', ['address']),
-			...mapGetters('user', ['addressDetail'])
 		}
 	}
 </script>

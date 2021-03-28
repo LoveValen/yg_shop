@@ -1,5 +1,6 @@
 <template>
 	<view>
+			<my-search></my-search>
 		<view class="scroll-view-container">
 			<!-- 左侧滚动区域 -->
 			<scroll-view class="scroll-view-container-left" scroll-y :style="{height:windowHeight+'px'}">
@@ -16,7 +17,8 @@
 						<text v-if="item.children">/ {{item.cat_name}} /</text>
 						<view class="imgList">
 							<view class="right_item_two">
-								<view v-for="(images,i) in item.children" :key="i" @click="navToGoodsList(images.cat_id)">
+								<view v-for="(images,i) in item.children" :key="i"
+									@click="navToGoodsList(images.cat_id)">
 									<image :src="images.cat_icon" mode=""></image>
 									<text>{{images.cat_name}}</text>
 								</view>
@@ -46,7 +48,7 @@
 		onLoad() {
 			// 获取当前系统的信息 uni.getSystemInfoSync()
 			// 为 windowHeight 窗口可用高度动态赋值
-			this.windowHeight = uni.getSystemInfoSync().windowHeight - 50
+			this.windowHeight = uni.getSystemInfoSync().windowHeight -50
 			this.getCateList()
 		},
 		methods: {

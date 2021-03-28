@@ -34,7 +34,7 @@
 			...mapGetters('cart', ['total', 'totalMoney', 'allChecked']),
 			...mapGetters('user', ['addressDetail']),
 			...mapState('user', ['token', 'address']),
-			...maoState('cart', ['cartInfo'])
+			...mapState('cart', ['cartInfo'])
 		},
 		methods: {
 			...mapMutations('cart', ['cancelAll']),
@@ -63,7 +63,7 @@
 						clearInterval(this.timer)
 						uni.switchTab({
 							url: '/pages/my/my',
-							success() {
+							success:()=> {
 								this.updateRedirectInfo({
 									openType: 'switchTab',
 									from: '/pages/cart/cart'
