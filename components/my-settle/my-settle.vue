@@ -7,9 +7,9 @@
 				</label>
 			</view>
 			<view class="middle">
-				合计:<text>￥{{totalMoney}}</text>
+				合计:<text>￥{{totalMoney.toFixed(2)}}</text>
 			</view>
-			<view class="right">
+			<view class="right" @click="settleHandler">
 				结算({{total}})
 			</view>
 		</view>
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-	import {mapGetters,mapMutations} from 'vuex'
+	import {mapState, mapGetters,mapMutations} from 'vuex'
 	export default {
 		name:"my-settle",
 		data() {
@@ -26,12 +26,18 @@
 			};
 		},
 		computed:{
-			...mapGetters('cart',['total','totalMoney','allChecked'])
+			...mapGetters('cart',['total','totalMoney','allChecked']),
+			...mapState('user',['token','address'])
 		},
 		methods:{
 			...mapMutations('cart',['cancelAll']),
 			cancelAllChecked(){
-				this.cancelAll()
+				this.cancelAll(!this.allChecked)
+			},
+			settleHandler(){
+				if(!this.token) return uni.$showMsg('请登录!')
+				if(!this.allChecked) return uni.$showMsg('没有勾选任何商品')
+				if(!this.address) return uni.$showMsg('请填写收货地址')
 			}
 		}
 	}

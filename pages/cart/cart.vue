@@ -1,19 +1,25 @@
 <template>
 	<view class="cart">
-		<my-address></my-address>
-		<view class="cart_top">
-			<uni-icons class="shop_icon" type="shop" size="18"></uni-icons>
-			<text>购物车</text>
+		<view v-if="cartInfo.length>0">
+			<my-address></my-address>
+			<view class="cart_top">
+				<uni-icons class="shop_icon" type="shop" size="18"></uni-icons>
+				<text>购物车</text>
+			</view>
+			<block v-for="(cart,index) in cartInfo" :key="index">
+				<uni-swipe-action>
+					<uni-swipe-action-item :right-options="options" @click="deleteGoods(cart)">
+						<goodsList @changeCount="changeCount" @removeCartList="showCartList" :showNumber="true"
+							:showRadio="true" :goods="cart"></goodsList>
+					</uni-swipe-action-item>
+				</uni-swipe-action>
+			</block>
+			<my-settle></my-settle>
 		</view>
-		<block v-for="(cart,index) in cartInfo" :key="index">
-			<uni-swipe-action>
-				<uni-swipe-action-item :right-options="options" @click="deleteGoods(cart)">
-					<goodsList @changeCount="changeCount" @removeCartList="showCartList" :showNumber="true"
-						:showRadio="true" :goods="cart"></goodsList>
-				</uni-swipe-action-item>
-			</uni-swipe-action>
-		</block>
-		<my-settle></my-settle>
+		<view class="empty" v-else>
+			<image class="empty_image" src="@/static/cart_empty@2x.png" mode=""></image>
+			<text>空空如也</text>
+		</view>
 	</view>
 </template>
 
@@ -68,6 +74,20 @@
 				margin: 0 10px;
 			}
 
+		}
+	}
+	
+	.empty{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding-top: 300rpx;
+		
+		.empty_image{
+			width: 90px;
+			height: 90px;
+			display: block;
+			margin-bottom: 10px;
 		}
 	}
 </style>

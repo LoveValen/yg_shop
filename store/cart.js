@@ -51,9 +51,9 @@ export default {
 			state.cartInfo = state.cartInfo.filter(item => item.goods_id !== goodsId)
 			this.commit('cart/saveStorageCart')
 		},
-		cancelAll(state) {
+		cancelAll(state,isChecked) {
 			state.cartInfo = state.cartInfo.map(item => {
-				item.goods_state = false
+				item.goods_state = isChecked
 				return item
 			})
 			this.commit('cart/saveStorageCart')
