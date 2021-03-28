@@ -2,8 +2,8 @@ export default {
 	namespaced: true,
 	state: () => ({
 		address: JSON.parse(uni.getStorageSync('address') || '{}'),
-		// token:JSON.parse(uni.getStorageSync('token')) || '',
-		token:'',
+		token:uni.getStorageSync('token') || '',
+		// token:'',
 		userInfo:JSON.parse(uni.getStorageSync('userInfo') || '{}'),
 	}),
 	mutations: {
@@ -25,8 +25,8 @@ export default {
 			state.token = token
 			this.commit('user/setStorageToken')
 		},
-		setStorageToken(state,token){
-			uni.setStorageSync('token',token)
+		setStorageToken(state){
+			uni.setStorageSync('token',state.token)
 		}
 	},
 	getters: {
