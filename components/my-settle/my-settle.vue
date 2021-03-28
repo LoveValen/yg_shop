@@ -32,11 +32,13 @@
 		},
 		computed: {
 			...mapGetters('cart', ['total', 'totalMoney', 'allChecked']),
-			...mapState('user', ['token', 'address'])
+			...mapGetters('user', ['addressDetail']),
+			...mapState('user', ['token', 'address']),
+			...maoState('cart', ['cartInfo'])
 		},
 		methods: {
 			...mapMutations('cart', ['cancelAll']),
-			...mapMutations('user',['updateRedirectInfo']),
+			...mapMutations('user', ['updateRedirectInfo']),
 			cancelAllChecked() {
 				this.cancelAll(!this.allChecked)
 			},
@@ -44,6 +46,8 @@
 				if (!this.token) return this.delayNavigate()
 				if (!this.allChecked) return uni.$showMsg('没有勾选任何商品')
 				if (!this.address) return uni.$showMsg('请填写收货地址')
+				// 实现微信支付功能
+				this.payOrder()
 
 			},
 			// 延迟导航到 my 页面
@@ -61,8 +65,8 @@
 							url: '/pages/my/my',
 							success() {
 								this.updateRedirectInfo({
-									openType:'switchTab',
-									from:'/pages/cart/cart'
+									openType: 'switchTab',
+									from: '/pages/cart/cart'
 								})
 							}
 						})
@@ -85,6 +89,30 @@
 					// 1.5秒后自动消失
 					duration: 1500
 				})
+			},
+			// 微信支付
+			async payOrder() {
+				// 1.创建订单
+				// 1.1 组织订单的信息对象
+				const orderInfo = {
+					// 开发期间，注释掉真实的订单价格
+					// order_price:this.totalMoney
+					// 写死订单总价为1分钱
+					order_price: 0.01,
+					consigee_addr: this.addressDetail,
+					goods: this.cartInfo.filter(item => item.goods_state).map(goods => {
+						return {
+							goods_id: goods.goods_id,
+							goods_number: goods.goods_count,
+							goods_price: goods.goods_price
+						}
+					})
+				}
+				// 1.2 发起请求创建订单
+				const {data:res } = await uni.$http.post('/api/public/v1/my/orders/create',orderInfo)
+				if(res.meta.status !== 200) return uni.$showMsg('创建订单失败！')
+				// 1.3 得到服务器响应的"订单编号"
+				const orderNumber = res.message.order_number
 			}
 		}
 	}
