@@ -39,7 +39,7 @@
 			return {};
 		},
 		methods: {
-			...mapMutations('user', ['setAddress']),
+			...mapMutations('user', ['updateAddress']),
 			// 选择收货地址
 			async chooseAddress() {
 				// 1. 调用小程序提供的 chooseAddress() 方法，即可使用选择收货地址的功能
@@ -49,7 +49,7 @@
 				if (err === null && success.errMsg === 'chooseAddress:ok') {
 					// 为 data 里面的收货地址对象赋值
 					this.address = success
-					this.setAddress(success)
+					this.updateAddress(success)
 				}
 				// 3. 用户没有授权
 				if (err && err.errMsg === 'chooseAddress:fail auth deny') {
